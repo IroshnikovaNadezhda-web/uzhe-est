@@ -19,31 +19,14 @@ canvas#sparks {
   z-index: 1; pointer-events: none;
 }
 
-.topbar {
-  position: relative; z-index: 5;
-  padding: 32px 48px 0;
-  display: flex; flex-direction: column; align-items: center;
-}
-.topbar .logo {
-  font-size: 13px; color: rgba(255,255,255,0.55);
-  letter-spacing: 0.08em; margin-bottom: 18px; text-decoration: none;
-}
-.topbar .line {
-  width: 100%; max-width: 1040px;
-  height: 1px; background: rgba(255,255,255,0.25);
-}
-
-.nav-links {
-  position: fixed; top: 28px; right: 40px; z-index: 6;
-  display: flex; gap: 18px;
-}
-.nav-links a {
-  font-size: 12px; color: rgba(255,255,255,0.6);
-  text-decoration: none; letter-spacing: 0.04em;
-  border-bottom: 1px solid transparent; transition: all .2s;
-}
-.nav-links a.active { color: rgba(255,255,255,0.95); border-bottom-color: rgba(255,255,255,0.6); }
-.nav-links a:hover { color: rgba(255,255,255,0.95); }
+.topbar { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding-top: 28px; }
+.topbar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; margin-bottom: 16px; }
+.logo { font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-decoration: none; font-weight: 500; }
+.nav-center { display: flex; gap: 28px; }
+.nav-center a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; letter-spacing: 0.04em; transition: color .2s; }
+.nav-center a:hover, .nav-center a.active { color: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(255,255,255,0.6); padding-bottom: 1px; }
+.nav-right { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+.topbar-line { width: 100%; max-width: 1100px; height: 1px; background: rgba(255,255,255,0.22); }
 
 .wrap {
   position: relative; z-index: 3;
@@ -190,7 +173,7 @@ canvas#sparks {
 
 <canvas id="sparks"></canvas>
 
-<div class="nav-links">
+<!-- removed -->
   <a href="index.html">Проект</a>
   <a href="essay.html">Эссе</a>
   <a href="analytics.html" class="active">Аналитика</a>

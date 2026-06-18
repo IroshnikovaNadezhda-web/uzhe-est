@@ -6,212 +6,91 @@
 <title>Уже есть — Эссе</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%); min-height: 100vh; }
 
-html, body {
-  width: 100%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%);
-  min-height: 100vh;
-}
+canvas#sparks { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-canvas#sparks {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
+.topbar { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding-top: 28px; }
+.topbar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; margin-bottom: 16px; }
+.logo { font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-decoration: none; font-weight: 500; }
+.nav-center { display: flex; gap: 28px; }
+.nav-center a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; letter-spacing: 0.04em; transition: color .2s; }
+.nav-center a:hover, .nav-center a.active { color: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(255,255,255,0.6); padding-bottom: 1px; }
+.nav-right { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+.topbar-line { width: 100%; max-width: 1100px; height: 1px; background: rgba(255,255,255,0.22); }
 
-.topbar {
-  position: relative;
-  z-index: 5;
-  padding: 32px 48px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.topbar .logo {
-  font-size: 13px;
-  color: rgba(255,255,255,0.55);
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
-  text-decoration: none;
-}
-.topbar .line {
-  width: 100%;
-  max-width: 1040px;
-  height: 1px;
-  background: rgba(255,255,255,0.25);
-}
-.nav-links {
-  position: fixed;
-  top: 28px;
-  right: 40px;
-  z-index: 6;
-  display: flex;
-  gap: 18px;
-}
-.nav-links a {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid transparent;
-  transition: all .2s;
-}
-.nav-links a.active { color: rgba(255,255,255,0.95); border-bottom-color: rgba(255,255,255,0.6); }
-.nav-links a:hover { color: rgba(255,255,255,0.95); }
-
-.essay-wrap {
-  position: relative;
-  z-index: 3;
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 60px 24px 120px;
-}
-
-.essay-title {
-  font-size: 42px;
-  color: rgba(255,255,255,0.97);
-  text-align: center;
-  font-weight: 400;
-  margin-bottom: 6px;
-}
-.essay-subtitle {
-  font-size: 13px;
-  color: rgba(255,255,255,0.55);
-  text-align: center;
-  letter-spacing: 0.05em;
-  margin-bottom: 64px;
-}
-
-.essay-wrap h2 {
-  font-size: 20px;
-  color: rgba(255,255,255,0.95);
-  font-weight: 500;
-  margin: 48px 0 18px;
-  letter-spacing: 0.01em;
-}
-.essay-wrap p {
-  font-size: 16px;
-  line-height: 1.85;
-  color: rgba(255,255,255,0.88);
-  margin-bottom: 18px;
-  text-align: justify;
-}
-.essay-wrap p.lead {
-  font-size: 18px;
-}
-
-.quote-final {
-  margin-top: 56px;
-  text-align: center;
-  font-size: 15px;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.04em;
-  font-style: italic;
-}
+.essay-wrap { position: relative; z-index: 3; max-width: 680px; margin: 0 auto; padding: 56px 24px 100px; }
+.essay-title { font-size: 40px; color: rgba(255,255,255,0.97); text-align: center; font-weight: 400; margin-bottom: 6px; }
+.essay-subtitle { font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; letter-spacing: 0.08em; margin-bottom: 56px; }
+.essay-wrap h2 { font-size: 18px; color: rgba(255,255,255,0.95); font-weight: 500; margin: 44px 0 16px; letter-spacing: 0.01em; }
+.essay-wrap p { font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.88); margin-bottom: 16px; text-align: justify; }
+.essay-wrap p.lead { font-size: 17px; }
+.quote-final { margin-top: 52px; text-align: center; font-size: 15px; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; font-style: italic; }
 
 @media (max-width: 600px) {
-  .essay-title { font-size: 28px; }
-  .essay-wrap h2 { font-size: 17px; }
-  .essay-wrap p { font-size: 14.5px; line-height: 1.75; }
-  .nav-links { top: 16px; right: 16px; gap: 10px; }
-  .nav-links a { font-size: 10px; }
+  .essay-title { font-size: 26px; }
+  .essay-wrap p { font-size: 14px; line-height: 1.75; }
+  .nav-right { display: none; }
 }
 </style>
 </head>
 <body>
-
 <canvas id="sparks"></canvas>
 
-<div class="nav-links">
-  <a href="index.html">Проект</a>
-  <a href="essay.html" class="active">Эссе</a>
-  <a href="analytics.html">Аналитика</a>
-</div>
-
 <div class="topbar">
-  <a href="index.html" class="logo">УЖЕ ЕСТЬ</a>
-  <div class="line"></div>
+  <div class="topbar-inner">
+    <a href="index.html" class="logo">УЖЕ ЕСТЬ</a>
+    <nav class="nav-center">
+      <a href="index.html">Проект</a>
+      <a href="essay.html" class="active">Эссе</a>
+      <a href="analytics.html">Аналитика</a>
+    </nav>
+    <span class="nav-right">Ирошникова Надежда</span>
+  </div>
+  <div class="topbar-line"></div>
 </div>
 
 <div class="essay-wrap">
-
   <p class="essay-title">«Уже есть»</p>
   <p class="essay-subtitle">ЭССЕ · НАДЕЖДА ИРОШНИКОВА</p>
 
-  <p class="lead">Сейчас — время, когда все куда-то спешат, стремятся достигать и очень многое успеть. Многие проживают каждый день как день сурка. В таком ритме легко забыть о том, что уже есть рядом. А забывая — перестаём ценить. И мало времени уделяем тому, что на самом деле важно: семье, близким, простым мелочам, моментам, когда кто-то уделяет тебе внимание или делает что-то приятное.</p>
+  <p class="lead">Сейчас - время, когда все куда-то спешат и стремятся достигать. Многие проживают каждый день как день сурка. В таком ритме легко забыть о том, что уже есть рядом - и перестать это ценить. Семья, близкие, простые мелочи, моменты тепла и внимания - всё это остаётся незамеченным.</p>
 
-  <p>Когда я думала над идеей проекта, я перебирала много вариантов. Поняла, что многие глубокие смыслы оставляют грустное или тяжёлое ощущение. Я решила сконцентрироваться на другом — на приятном. Хочется, чтобы человек после взаимодействия с моим проектом оставался с чувством осознанности и благодарности. Не как моральный вывод, просто как тихое, личное открытие.</p>
+  <p>Когда я думала над идеей проекта, я поняла: многие глубокие смыслы оставляют тяжёлое ощущение. Я решила сконцентрироваться на приятном - чтобы человек после взаимодействия с проектом оставался с чувством осознанности и благодарности. Не как моральный вывод - просто как тихое, личное открытие.</p>
 
   <h2>Художник: Джонатан Харрис</h2>
 
-  <p>В качестве художника, на которого я опираюсь, я выбрала Джонатана Харриса — американского художника, технолога и исследователя, работающего на стыке net-арта, концептуализма и интерактивного дизайна.</p>
+  <p>В качестве художника, на которого я опираюсь, я выбрала Джонатана Харриса - американского художника и исследователя, работающего на стыке net-арта, концептуализма и интерактивного дизайна.</p>
 
-  <p>Его самая известная работа — проект We Feel Fine, созданный в 2005 году совместно с Сепом Камваром. Система каждые несколько минут сканировала блоги по всему миру в поисках фраз «I feel» и «I am feeling». Найденные предложения сохранялись вместе с информацией об авторе: возраст, пол, местоположение, погода за окном. Так формировалась живая, постоянно обновляющаяся база человеческих эмоций до 15 000–20 000 новых чувств в день.</p>
+  <p>Его главная работа - проект We Feel Fine (2005, совместно с Сепом Камваром). Система каждые несколько минут сканировала блоги по всему миру в поисках фраз «I feel» и «I am feeling». Найденные предложения сохранялись вместе с данными об авторе: возраст, пол, местоположение, погода. Так формировалась живая база человеческих эмоций - до 15 000-20 000 новых чувств в день.</p>
 
-  <p>Визуально это выглядело как мерцающие цветные точки на экране, каждая точка — это одна эмоция одного человека. Кликнув на точку, зритель видел полное предложение и фотографию из блога автора. Система собирала эти фрагменты вместе — и вдруг становилось видно, что все мы чувствуем примерно одно и то же: одиночество, радость, тревогу, нежность. Это было невероятно честно и очень человечно.</p>
+  <p>Визуально это мерцающие цветные точки на экране - каждая точка это одна эмоция одного человека. Система собирала фрагменты вместе - и становилось видно, что все мы чувствуем примерно одно: одиночество, радость, нежность. Проект отмечен в MoMA и стал одним из первых примеров того, как интернет может быть художественным материалом.</p>
 
-  <p>В 2009 году на основе двенадцати миллионов собранных чувств Харрис и Камвар выпустили книгу We Feel Fine: An Almanac of Human Emotion. Проект был отмечен в MoMA и стал одним из первых примеров того, как интернет может быть не просто инструментом, а художественным материалом.</p>
-
-  <p>Я выбрала его, потому что он открыл для меня принцип, который стал основой моей работы: простое действие может обнажить что-то очень настоящее в человеке. В We Feel Fine людям не нужно было ничего делать специально — они просто писали, и система находила их. В моём проекте я хочу пойти дальше: пригласить человека осознанно остановиться и написать то, за что он благодарен прямо сейчас. Не пассивный сбор данных, а активное приглашение к рефлексии.</p>
-
-  <p>От Харриса я беру концепцию: коллективные слова обычных людей как художественный материал. Но визуально переосмысляю это иначе — не как поток данных, а как живой момент. Рукописные каллиграфические фразы появляются на экране, как будто кто-то пишет рядом с тобой прямо сейчас. Это добавляет душевности и тепла.</p>
+  <p>Я выбрала его, потому что он открыл для меня принцип: простое действие может обнажить что-то очень настоящее в человеке. В моём проекте я иду дальше - не пассивный сбор данных, а активное приглашение к рефлексии. От Харриса я беру концепцию коллективных слов как художественного материала, но визуально переосмысляю: рукописные фразы появляются на экране, как будто кто-то пишет рядом прямо сейчас.</p>
 
   <h2>Проект «Уже есть»</h2>
 
-  <p>В основе проекта — один простой вопрос: что у тебя уже есть? Не мечты, не цели, то, что существует прямо сейчас и за что можно быть благодарным. Пользователь пишет три вещи или момента. После этого на экране около семи секунд появляются каллиграфические фразы других людей — и становится видно, что у всех есть что-то своё, тёплое и настоящее. В финале возвращаются его собственные три слова, и под ними короткая фраза: «Это уже твоё».</p>
+  <p>В основе - один вопрос: что у тебя уже есть? Не мечты, не цели - то, что существует прямо сейчас. Пользователь пишет три вещи. После этого на экране появляются каллиграфические фразы других людей - и становится видно, что у всех есть что-то своё, тёплое и настоящее. В финале возвращаются его собственные слова и короткая фраза: «Это уже твоё».</p>
 
-  <p>Форма проекта совпадает с его содержанием: человек не читает о благодарности — он практикует её прямо в момент взаимодействия. Арт-объект не объясняет, он создаёт опыт.</p>
-
-  <p>Визуально я вижу это как спокойный градиент природных оттенков, рассветное небо с мягким свечением и анимированными искрами. Интерфейсный текст — читаемый гротеск, пользовательские фразы — каллиграфический шрифт Miama Nueva. Реализация — адаптивный веб-сайт, доступный с любого устройства.</p>
+  <p>Форма совпадает с содержанием: человек не читает о благодарности - он практикует её прямо сейчас. Арт-объект не объясняет, он создаёт опыт. Визуально - рассветный градиент с мягким свечением и искрами, каллиграфический шрифт Miama Nueva для пользовательских фраз, читаемый гротеск для интерфейса.</p>
 
   <p class="quote-final">«Это уже твоё»</p>
-
 </div>
 
 <script>
-function initSparks() {
-  const canvas = document.getElementById('sparks');
-  const ctx = canvas.getContext('2d');
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const particles = Array.from({length: 50}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.6 + 0.3,
-    phase: Math.random() * Math.PI * 2,
-    speed: Math.random() * 0.006 + 0.003,
-    drift: (Math.random() - 0.5) * 0.1
-  }));
-
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    t += 0.02;
-    particles.forEach(p => {
-      p.x += p.drift;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      const alpha = 0.15 + 0.45 * Math.abs(Math.sin(t * p.speed * 50 + p.phase));
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(2)})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-}
-initSparks();
+(function(){
+  const c=document.getElementById('sparks'),x=c.getContext('2d');
+  function r(){ c.width=innerWidth; c.height=innerHeight; }
+  r(); window.addEventListener('resize',r);
+  const pts=Array.from({length:50},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.6+0.3,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.003,dx:(Math.random()-.5)*.1}));
+  let t=0;
+  (function draw(){ x.clearRect(0,0,c.width,c.height); t+=.02;
+    pts.forEach(p=>{ p.x+=p.dx; if(p.x<0)p.x=c.width; if(p.x>c.width)p.x=0;
+      const a=.15+.45*Math.abs(Math.sin(t*p.sp*50+p.ph));
+      x.beginPath(); x.arc(p.x,p.y,p.r,0,Math.PI*2); x.fillStyle=`rgba(255,255,255,${a.toFixed(2)})`; x.fill();
+    }); requestAnimationFrame(draw);
+  })();
+})();
 </script>
-
 </body>
 </html>
