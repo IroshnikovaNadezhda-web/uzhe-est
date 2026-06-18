@@ -10,102 +10,101 @@
   src: url('fonts/miamanueva.otf') format('opentype'),
        url('fonts/miamanueva.ttf') format('truetype');
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; height: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
-
 #app {
   width: 100%; height: 100vh; position: relative;
   background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%);
   overflow: hidden;
 }
-
 canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-/* ШАПКА по центру */
+/* ШАПКА */
 .topbar {
   position: absolute; top: 0; left: 0; right: 0; z-index: 5;
-  display: flex; flex-direction: column; align-items: center;
-  padding-top: 28px;
+  display: flex; flex-direction: column; align-items: center; padding-top: 28px;
 }
 .topbar-inner {
   width: 100%; max-width: 1100px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px 0 40px;
-  margin-bottom: 16px;
+  padding: 0 40px; margin-bottom: 16px;
 }
 .logo { font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-decoration: none; font-weight: 500; }
 .nav-center { display: flex; gap: 28px; }
 .nav-center a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; letter-spacing: 0.04em; transition: color .2s; }
 .nav-center a:hover, .nav-center a.active { color: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(255,255,255,0.6); padding-bottom: 1px; }
-.nav-right { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+.nav-right { font-size: 12px; color: rgba(255,255,255,0.5); }
 .topbar-line { width: 100%; max-width: 1100px; height: 1px; background: rgba(255,255,255,0.22); }
 
-/* Прогресс-навигация */
+/* ПРОГРЕСС */
 .progress-nav {
-  position: absolute; top: 90px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: 88px; left: 50%; transform: translateX(-50%);
   z-index: 5; display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; white-space: nowrap;
+  font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; white-space: nowrap;
 }
 .progress-nav span.sep { opacity: 0.4; }
-.progress-nav span.step { cursor: default; transition: color .3s; }
+.progress-nav span.step { transition: color .3s; }
 .progress-nav span.step.active { color: rgba(255,255,255,0.95); font-weight: 600; }
 
-/* Экраны */
+/* ЭКРАНЫ */
 .screen {
   position: absolute; inset: 0; z-index: 3;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 110px 24px 40px;
+  padding: 120px 24px 40px;
   opacity: 0; visibility: hidden; transition: opacity 1s ease;
 }
 .screen.active { opacity: 1; visibility: visible; }
 
-/* Экран 1 */
-.headline { font-size: 38px; font-weight: 400; color: rgba(255,255,255,0.95); text-align: center; line-height: 1.45; max-width: 680px; }
+/* ЭКРАН 1 */
+.headline { font-size: 38px; font-weight: 400; color: rgba(255,255,255,0.97); text-align: center; line-height: 1.45; max-width: 680px; }
 .start-hint {
-  margin-top: 52px; font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em;
-  border: 1px solid rgba(255,255,255,0.4); padding: 12px 36px; border-radius: 999px;
-  cursor: pointer; transition: all .25s; background: rgba(255,255,255,0.06);
+  margin-top: 52px; font-size: 13px; color: rgba(255,255,255,0.8); letter-spacing: 0.1em;
+  border: 1px solid rgba(255,255,255,0.5); padding: 12px 36px; border-radius: 999px;
+  cursor: pointer; transition: all .25s; background: rgba(255,255,255,0.08);
 }
-.start-hint:hover { background: rgba(255,255,255,0.18); }
+.start-hint:hover { background: rgba(255,255,255,0.2); }
 
-/* Экран 2 */
-.headline-sm { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.45); text-align: center; line-height: 1.5; margin-bottom: 40px; max-width: 560px; transition: opacity .6s; }
-.input-group { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 14px; }
-
+/* ЭКРАН 2 */
+.headline-sm {
+  font-size: 22px; font-weight: 400;
+  color: rgba(255,255,255,0.97); /* НЕПРОЗРАЧНЫЙ */
+  text-align: center; line-height: 1.5; margin-bottom: 36px; max-width: 540px;
+  transition: opacity .6s;
+}
+.input-group { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 12px; }
 .input-pill {
   width: 100%; background: rgba(255,255,255,0.88); border: none; border-radius: 26px;
-  padding: 15px 26px; font-size: 22px; color: #6b4a4a; text-align: center;
-  outline: none; font-family: 'Miama Nueva', cursive;
+  padding: 12px 24px; /* уменьшен padding чтобы буквы не обрезались */
+  font-size: 20px; /* чуть меньше */
+  color: #6b4a4a; text-align: center; outline: none;
+  font-family: 'Miama Nueva', cursive;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  line-height: 1.6; /* больше межстрочный чтобы выносные элементы не обрезались */
   transition: box-shadow .2s, transform .15s;
-  /* анимация появления букв */
-  letter-spacing: 0.02em;
 }
-.input-pill::placeholder { color: rgba(107,74,74,0.3); font-family: 'Miama Nueva', cursive; font-size: 20px; }
+.input-pill::placeholder { color: rgba(107,74,74,0.3); font-family: 'Miama Nueva', cursive; font-size: 18px; }
 .input-pill:focus { box-shadow: 0 6px 24px rgba(0,0,0,0.1); transform: scale(1.01); }
-
 .enter-btn {
-  margin-top: 26px; font-size: 13px; letter-spacing: 0.1em; color: rgba(255,255,255,0.7);
+  margin-top: 22px; font-size: 13px; letter-spacing: 0.1em; color: rgba(255,255,255,0.7);
   background: transparent; border: 1px solid rgba(255,255,255,0.4); padding: 11px 38px;
   border-radius: 999px; cursor: pointer; transition: all .25s; opacity: 0.3; pointer-events: none;
 }
 .enter-btn.ready { opacity: 1; pointer-events: auto; }
 .enter-btn.ready:hover { background: rgba(255,255,255,0.18); }
 
-/* Экран 3 */
+/* ЭКРАН 3 — медленнее */
 .cloud-wrap { position: relative; width: 100%; height: 100%; }
 .floating-word {
   position: absolute; font-family: 'Miama Nueva', cursive;
   color: rgba(255,255,255,0.88); font-size: 32px;
   opacity: 0; white-space: nowrap;
-  transition: opacity 1.3s ease, transform 1.3s ease;
+  transition: opacity 2s ease, transform 2s ease; /* медленнее */
   transform: translateY(10px);
 }
 .floating-word.show { opacity: 1; transform: translateY(0); }
 .floating-word.user-word { color: rgba(255,255,255,0.98); font-size: 38px; }
 
-/* Экран 4 */
+/* ЭКРАН 4 */
 .final-list { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .final-item {
   font-family: 'Miama Nueva', cursive; font-size: 40px;
@@ -113,10 +112,24 @@ canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index
   opacity: 0; transform: translateY(10px); transition: opacity .9s ease, transform .9s ease;
 }
 .final-item.show { opacity: 1; transform: translateY(0); }
+
 .divider { width: 36px; height: 1px; background: rgba(255,255,255,0.35); margin: 26px auto; opacity: 0; transition: opacity 1s ease; }
 .divider.show { opacity: 1; }
-.final-caption { font-size: 16px; color: rgba(255,255,255,0.6); letter-spacing: 0.14em; text-align: center; opacity: 0; transition: opacity 1.2s ease; }
-.final-caption.show { opacity: 1; }
+
+/* "Это уже твоё" — контрастный белый с подчёркиванием */
+.final-caption-wrap { display: flex; flex-direction: column; align-items: center; opacity: 0; transition: opacity 1.2s ease; }
+.final-caption-wrap.show { opacity: 1; }
+.final-caption {
+  font-size: 18px; color: rgba(255,255,255,1); /* полностью белый */
+  letter-spacing: 0.14em; text-align: center; font-weight: 500;
+}
+.final-underline {
+  height: 1px; background: rgba(255,255,255,0.9);
+  margin-top: 6px; width: 0%;
+  transition: width 1.2s ease 0.3s; /* анимация слева направо */
+}
+.final-caption-wrap.show .final-underline { width: 100%; }
+
 .restart-hint { margin-top: 44px; font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; cursor: pointer; opacity: 0; transition: opacity 1.5s ease; text-decoration: underline; }
 .restart-hint.show { opacity: 1; }
 
@@ -125,7 +138,6 @@ canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index
   .headline-sm { font-size: 16px; }
   .final-item { font-size: 28px; }
   .floating-word { font-size: 20px; }
-  .nav-center { gap: 14px; }
   .nav-right { display: none; }
 }
 </style>
@@ -179,18 +191,20 @@ canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index
   <div class="screen" id="screen-4">
     <div class="final-list" id="finalList"></div>
     <div class="divider" id="finalDivider"></div>
-    <p class="final-caption" id="finalCaption">это уже твоё</p>
+    <div class="final-caption-wrap" id="finalCaptionWrap">
+      <p class="final-caption">это уже твоё</p>
+      <div class="final-underline" id="finalUnderline"></div>
+    </div>
     <p class="restart-hint" id="restartHint" onclick="restart()">пройти снова</p>
   </div>
 </div>
 
 <script>
-// Sparks
 (function(){
-  const c = document.getElementById('sparks'), x = c.getContext('2d');
-  function r(){ c.width = innerWidth; c.height = innerHeight; }
-  r(); window.addEventListener('resize', r);
-  const pts = Array.from({length:70}, ()=>({ x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*1.8+0.3, ph:Math.random()*Math.PI*2, sp:Math.random()*.006+.003, dx:(Math.random()-.5)*.12 }));
+  const c=document.getElementById('sparks'),x=c.getContext('2d');
+  function r(){ c.width=innerWidth; c.height=innerHeight; } r();
+  window.addEventListener('resize',r);
+  const pts=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.8+0.3,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.003,dx:(Math.random()-.5)*.12}));
   let t=0;
   (function draw(){ x.clearRect(0,0,c.width,c.height); t+=.02;
     pts.forEach(p=>{ p.x+=p.dx; if(p.x<0)p.x=c.width; if(p.x>c.width)p.x=0;
@@ -200,79 +214,71 @@ canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index
   })();
 })();
 
-const phrases = ["запах дома","мама","первый кофе","мой пёс","тишина утром","подруга","тёплый плед","смех","солнце в окне","бабушкины руки","тот, кто ждёт дома","друг, который всегда рядом","улыбка незнакомца","мамин голос","утро без будильника","горячий чай","объятия без повода","любимая песня","запах маминой еды"];
-const positions = [{top:'10%',left:'4%'},{top:'16%',left:'44%'},{top:'12%',left:'72%'},{top:'30%',left:'12%'},{top:'28%',left:'56%'},{top:'44%',left:'6%'},{top:'46%',left:'65%'},{top:'58%',left:'28%'},{top:'62%',left:'70%'},{top:'72%',left:'10%'},{top:'75%',left:'46%'}];
-
+const phrases=["запах дома","мама","первый кофе","мой пёс","тишина утром","подруга","тёплый плед","смех","солнце в окне","бабушкины руки","тот, кто ждёт дома","друг, который всегда рядом","утро без будильника","горячий чай","объятия без повода"];
+const positions=[{top:'10%',left:'4%'},{top:'16%',left:'44%'},{top:'12%',left:'68%'},{top:'30%',left:'12%'},{top:'28%',left:'56%'},{top:'44%',left:'6%'},{top:'46%',left:'62%'},{top:'58%',left:'28%'},{top:'62%',left:'68%'},{top:'72%',left:'10%'},{top:'75%',left:'44%'}];
 function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
 
-let userWords = [];
+let userWords=[];
 
-function setProgress(n){
-  ['pv1','pv2','pv3','pv4'].forEach((id,i)=>{ document.getElementById(id).classList.toggle('active', i===n-1); });
-}
+function setProgress(n){ ['pv1','pv2','pv3','pv4'].forEach((id,i)=>{ document.getElementById(id).classList.toggle('active',i===n-1); }); }
+function goToScreen(n){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-'+n).classList.add('active'); setProgress(n); }
 
-function goToScreen(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+n).classList.add('active');
-  setProgress(n);
-}
-
-const inputs = ['inp1','inp2','inp3'].map(id=>document.getElementById(id));
-const enterBtn = document.getElementById('enterBtn');
-const qFade = document.getElementById('q-fade');
+const inputs=['inp1','inp2','inp3'].map(id=>document.getElementById(id));
+const enterBtn=document.getElementById('enterBtn');
+const qFade=document.getElementById('q-fade');
 
 function checkInputs(){
-  const ok = inputs.every(i=>i.value.trim().length>0);
-  enterBtn.classList.toggle('ready', ok);
-  if(inputs[0].value.length>0) qFade.style.opacity='0.3';
-  else qFade.style.opacity='1';
+  const ok=inputs.every(i=>i.value.trim().length>0);
+  enterBtn.classList.toggle('ready',ok);
+  qFade.style.opacity=inputs[0].value.length>0?'0.45':'1';
 }
-inputs.forEach(i=>i.addEventListener('input', checkInputs));
-inputs[2].addEventListener('keydown', e=>{ if(e.key==='Enter' && enterBtn.classList.contains('ready')) submitWords(); });
+inputs.forEach(i=>i.addEventListener('input',checkInputs));
+inputs[2].addEventListener('keydown',e=>{ if(e.key==='Enter'&&enterBtn.classList.contains('ready')) submitWords(); });
 
 function submitWords(){
   if(!enterBtn.classList.contains('ready')) return;
-  userWords = inputs.map(i=>i.value.trim());
-  goToScreen(3);
-  runCloud();
+  userWords=inputs.map(i=>i.value.trim());
+  goToScreen(3); runCloud();
 }
 
 function runCloud(){
-  const wrap = document.getElementById('cloudWrap');
-  wrap.innerHTML = '';
-  const pool = shuffle(phrases).slice(0,7);
-  const seq = shuffle([...pool, ...userWords.map(w=>({user:true,text:w}))]);
-  const pos = shuffle(positions);
-  let delay = 300;
+  const wrap=document.getElementById('cloudWrap');
+  wrap.innerHTML='';
+  const pool=shuffle(phrases).slice(0,7);
+  const seq=shuffle([...pool,...userWords.map(w=>({user:true,text:w}))]);
+  const pos=shuffle(positions);
+  let delay=400;
   seq.forEach((item,idx)=>{
-    const el = document.createElement('div');
-    const isUser = typeof item==='object' && item.user;
-    el.className = 'floating-word'+(isUser?' user-word':'');
-    el.textContent = isUser ? item.text : item;
-    const p = pos[idx%pos.length];
-    el.style.top = p.top; el.style.left = p.left;
+    const el=document.createElement('div');
+    const isUser=typeof item==='object'&&item.user;
+    el.className='floating-word'+(isUser?' user-word':'');
+    el.textContent=isUser?item.text:item;
+    const p=pos[idx%pos.length];
+    el.style.top=p.top; el.style.left=p.left;
     wrap.appendChild(el);
-    setTimeout(()=>el.classList.add('show'), delay);
-    setTimeout(()=>el.classList.remove('show'), delay+2400);
-    delay += 680;
+    setTimeout(()=>el.classList.add('show'),delay);
+    setTimeout(()=>el.classList.remove('show'),delay+3200); /* дольше висят */
+    delay+=900; /* медленнее появляются */
   });
-  setTimeout(()=>{ goToScreen(4); runFinal(); }, delay+1800);
+  setTimeout(()=>{ goToScreen(4); runFinal(); },delay+2200);
 }
 
 function runFinal(){
-  const list = document.getElementById('finalList');
-  list.innerHTML = '';
+  const list=document.getElementById('finalList');
+  list.innerHTML='';
   userWords.forEach((w,i)=>{
-    const p = document.createElement('p');
+    const p=document.createElement('p');
     p.className='final-item'; p.textContent=w; list.appendChild(p);
-    setTimeout(()=>p.classList.add('show'), 400+i*520);
+    setTimeout(()=>p.classList.add('show'),400+i*520);
   });
-  const div=document.getElementById('finalDivider'), cap=document.getElementById('finalCaption'), rst=document.getElementById('restartHint');
-  div.classList.remove('show'); cap.classList.remove('show'); rst.classList.remove('show');
-  const base = 400+userWords.length*520;
-  setTimeout(()=>div.classList.add('show'), base+300);
-  setTimeout(()=>cap.classList.add('show'), base+700);
-  setTimeout(()=>rst.classList.add('show'), base+2200);
+  const div=document.getElementById('finalDivider');
+  const capWrap=document.getElementById('finalCaptionWrap');
+  const rst=document.getElementById('restartHint');
+  div.classList.remove('show'); capWrap.classList.remove('show'); rst.classList.remove('show');
+  const base=400+userWords.length*520;
+  setTimeout(()=>div.classList.add('show'),base+300);
+  setTimeout(()=>capWrap.classList.add('show'),base+700);
+  setTimeout(()=>rst.classList.add('show'),base+2400);
 }
 
 function restart(){
