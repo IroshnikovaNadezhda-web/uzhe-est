@@ -235,16 +235,35 @@ function checkInputs(){
 inputs.forEach(i=>i.addEventListener('input',checkInputs));
 inputs[2].addEventListener('keydown',e=>{ if(e.key==='Enter'&&enterBtn.classList.contains('ready')) submitWords(); });
 
+function saveWordsToStorage(words){
+  try {
+    const key = 'uzheest_words';
+    let stored = JSON.parse(localStorage.getItem(key) || '[]');
+    stored = stored.concat(words);
+    if (stored.length > 60) stored = stored.slice(stored.length - 60);
+    localStorage.setItem(key, JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function getStoredWords(){
+  try {
+    return JSON.parse(localStorage.getItem('uzheest_words') || '[]');
+  } catch(e) { return []; }
+}
+
 function submitWords(){
   if(!enterBtn.classList.contains('ready')) return;
   userWords=inputs.map(i=>i.value.trim());
+  saveWordsToStorage(userWords);
   goToScreen(3); runCloud();
 }
 
 function runCloud(){
   const wrap=document.getElementById('cloudWrap');
   wrap.innerHTML='';
-  const pool=shuffle(phrases).slice(0,7);
+  const stored = getStoredWords().filter(w => !userWords.includes(w));
+  const combinedPool = shuffle([...phrases, ...stored]);
+  const pool=combinedPool.slice(0,7);
   const seq=shuffle([...pool,...userWords.map(w=>({user:true,text:w}))]);
   const pos=shuffle(positions);
   let delay=400;

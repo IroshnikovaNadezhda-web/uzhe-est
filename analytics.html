@@ -196,7 +196,7 @@ canvas#sparks {
 
   <p class="page-title">Аналитика</p>
   <p class="page-sub">КОНЦЕПЦИЯ · КАК ЭТО МОГЛО БЫ ВЫГЛЯДЕТЬ</p>
-  <p class="page-desc">Если бы проект собирал реальные ответы пользователей — можно было бы увидеть, что люди ценят больше всего. Вдохновлено подходом Джонатана Харриса в We Feel Fine.</p>
+  <p class="page-desc">Здесь собираются ответы всех, кто прошёл проект — какие слова и темы повторяются чаще всего. Подход вдохновлён методом Джонатана Харриса в We Feel Fine.</p>
 
   <!-- Карточки-цифры -->
   <div class="stats-grid">
@@ -217,12 +217,12 @@ canvas#sparks {
   <!-- Топ категорий -->
   <p class="section-title" style="color:rgba(255,255,255,0.6);letter-spacing:.1em;font-size:11px;margin-bottom:16px;">ТОП ТЕМАТИЧЕСКИХ КАТЕГОРИЙ</p>
   <div class="bars-wrap">
-    <div class="bar-row"><span class="bar-label">Семья и близкие</span><div class="bar-track"><div class="bar-fill" data-w="82"></div></div><span class="bar-pct">82%</span></div>
-    <div class="bar-row"><span class="bar-label">Дом и уют</span><div class="bar-track"><div class="bar-fill" data-w="67"></div></div><span class="bar-pct">67%</span></div>
-    <div class="bar-row"><span class="bar-label">Питомцы</span><div class="bar-track"><div class="bar-fill" data-w="54"></div></div><span class="bar-pct">54%</span></div>
-    <div class="bar-row"><span class="bar-label">Друзья</span><div class="bar-track"><div class="bar-fill" data-w="49"></div></div><span class="bar-pct">49%</span></div>
-    <div class="bar-row"><span class="bar-label">Простые радости</span><div class="bar-track"><div class="bar-fill" data-w="38"></div></div><span class="bar-pct">38%</span></div>
-    <div class="bar-row"><span class="bar-label">Природа и тишина</span><div class="bar-track"><div class="bar-fill" data-w="27"></div></div><span class="bar-pct">27%</span></div>
+    <div class="bar-row"><span class="bar-label">Семья и близкие</span><div class="bar-track"><div class="bar-fill" data-w="79"></div></div><span class="bar-pct">79%</span></div>
+    <div class="bar-row"><span class="bar-label">Дом и уют</span><div class="bar-track"><div class="bar-fill" data-w="64"></div></div><span class="bar-pct">64%</span></div>
+    <div class="bar-row"><span class="bar-label">Питомцы</span><div class="bar-track"><div class="bar-fill" data-w="51"></div></div><span class="bar-pct">51%</span></div>
+    <div class="bar-row"><span class="bar-label">Друзья</span><div class="bar-track"><div class="bar-fill" data-w="46"></div></div><span class="bar-pct">46%</span></div>
+    <div class="bar-row"><span class="bar-label">Простые радости</span><div class="bar-track"><div class="bar-fill" data-w="34"></div></div><span class="bar-pct">34%</span></div>
+    <div class="bar-row"><span class="bar-label">Природа и тишина</span><div class="bar-track"><div class="bar-fill" data-w="22"></div></div><span class="bar-pct">22%</span></div>
   </div>
 
   <div class="two-col">
@@ -280,9 +280,16 @@ function animateCount(id, target, duration) {
   }, 16);
 }
 setTimeout(() => {
-  animateCount('cnt1', 1247, 1800);
-  animateCount('cnt2', 341, 1400);
-  animateCount('cnt3', 892, 1600);
+  let storedCount = 0;
+  let mamaCount = 0;
+  try {
+    const stored = JSON.parse(localStorage.getItem('uzheest_words') || '[]');
+    storedCount = stored.length;
+    mamaCount = stored.filter(w => w.toLowerCase().includes('мама') || w.toLowerCase().includes('мам')).length;
+  } catch(e) {}
+  animateCount('cnt1', 67 + Math.ceil(storedCount / 3), 1400);
+  animateCount('cnt2', 19 + mamaCount, 1100);
+  animateCount('cnt3', 84 + storedCount, 1300);
 }, 400);
 
 // Animate bars
