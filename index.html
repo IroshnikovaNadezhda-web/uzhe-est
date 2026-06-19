@@ -16,7 +16,12 @@ html, body { width: 100%; height: 100%; font-family: 'Helvetica Neue', Arial, sa
   width: 100%; height: 100vh; position: relative;
   background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%);
   overflow: hidden;
+  opacity: 0;
+  animation: pageFadeIn 1.4s ease forwards;
 }
+@keyframes pageFadeIn { to { opacity: 1; } }
+.logo { font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-decoration: none; font-weight: 500; opacity: 0; animation: logoFadeIn 1.2s ease 0.3s forwards; }
+@keyframes logoFadeIn { to { opacity: 1; } }
 canvas#sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
 /* ШАПКА */

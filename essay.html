@@ -7,6 +7,8 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%); min-height: 100vh; }
+.essay-wrap { opacity: 0; animation: pageFadeIn 1.2s ease forwards; }
+@keyframes pageFadeIn { to { opacity: 1; } }
 canvas#sparks { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 .topbar { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding-top: 28px; }
 .topbar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; margin-bottom: 16px; }

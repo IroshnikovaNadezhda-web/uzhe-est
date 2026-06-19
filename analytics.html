@@ -13,6 +13,8 @@ html, body {
   background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%);
   min-height: 100vh;
 }
+.wrap { opacity: 0; animation: pageFadeIn 1.2s ease forwards; }
+@keyframes pageFadeIn { to { opacity: 1; } }
 
 canvas#sparks {
   position: fixed; inset: 0; width: 100%; height: 100%;
