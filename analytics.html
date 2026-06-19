@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Уже есть — Аналитика</title>
 <style>
+html { background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%); }
+html.page-loading body { opacity: 0; }
+html.page-loaded body { opacity: 1; transition: opacity 0.5s ease; }
+html.page-leaving body { opacity: 0 !important; transition: opacity 0.32s ease !important; }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -13,8 +18,6 @@ html, body {
   background: linear-gradient(160deg, #f08a6c 0%, #f5a98b 22%, #f7b8a8 42%, #f3aec2 62%, #d9a8cf 82%, #c79bd1 100%);
   min-height: 100vh;
 }
-.wrap { opacity: 0; animation: pageFadeIn 1.2s ease forwards; }
-@keyframes pageFadeIn { to { opacity: 1; } }
 
 canvas#sparks {
   position: fixed; inset: 0; width: 100%; height: 100%;
